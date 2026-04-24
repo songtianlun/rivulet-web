@@ -3,19 +3,19 @@ import { useState, useEffect, useRef } from 'react';
 // ── THEME TOKENS ──────────────────────────────────────────────
 const THEMES = {
     classic: {
-        bg: '#ffffff', bgAlt: '#f7faf8', border: '#e4ede8',
-        text: '#1a1a1a', muted: '#6b7280', accent: '#3DAA6E',
-        accentDark: '#2a8a55', accentLight: '#e8f5ef',
+        bg: '#ffffff', bgAlt: '#f8f7ff', border: '#e4e0f5',
+        text: '#1a1a1a', muted: '#6b7280', accent: '#7C3AED',
+        accentDark: '#6D28D9', accentLight: '#F5F3FF',
     },
     nature: {
-        bg: '#faf9f6', bgAlt: '#f2f0eb', border: '#ddd8ce',
-        text: '#1c1c18', muted: '#7a7060', accent: '#4a9c68',
-        accentDark: '#366e4a', accentLight: '#eaf2ec',
+        bg: '#faf9ff', bgAlt: '#f3f0fb', border: '#ddd6fe',
+        text: '#1c1a2a', muted: '#7a6f8a', accent: '#8B5CF6',
+        accentDark: '#7C3AED', accentLight: '#EDE9FE',
     },
     contrast: {
-        bg: '#ffffff', bgAlt: '#f4f4f4', border: '#e0e0e0',
-        text: '#0a0a0a', muted: '#555555', accent: '#2d9e5f',
-        accentDark: '#1f7244', accentLight: '#e6f4ee',
+        bg: '#ffffff', bgAlt: '#f5f3ff', border: '#e0d9f9',
+        text: '#0a0a0a', muted: '#555555', accent: '#6D28D9',
+        accentDark: '#5B21B6', accentLight: '#EDE9FE',
     },
 };
 
@@ -205,14 +205,14 @@ function StreamDecor({ color }) {
 function MockDashboard({ theme, lang }) {
     const txZh = [
         { label: '早餐', cat: '餐饮', amt: '-¥18', color: '#ef4444', time: '08:30' },
-        { label: '工资', cat: '收入', amt: '+¥12,000', color: '#3DAA6E', time: '09:00' },
+        { label: '工资', cat: '收入', amt: '+¥12,000', color: '#7C3AED', time: '09:00' },
         { label: '地铁', cat: '交通', amt: '-¥4', color: '#ef4444', time: '09:15' },
         { label: '午餐', cat: '餐饮', amt: '-¥35', color: '#ef4444', time: '12:10' },
         { label: '基金买入', cat: '投资', amt: '-¥2,000', color: '#f59e0b', time: '14:00' },
     ];
     const txEn = [
         { label: 'Breakfast', cat: 'Dining', amt: '-¥18', color: '#ef4444', time: '08:30' },
-        { label: 'Salary', cat: 'Income', amt: '+¥12,000', color: '#3DAA6E', time: '09:00' },
+        { label: 'Salary', cat: 'Income', amt: '+¥12,000', color: '#7C3AED', time: '09:00' },
         { label: 'Metro', cat: 'Transport', amt: '-¥4', color: '#ef4444', time: '09:15' },
         { label: 'Lunch', cat: 'Dining', amt: '-¥35', color: '#ef4444', time: '12:10' },
         { label: 'Fund Buy', cat: 'Investment', amt: '-¥2,000', color: '#f59e0b', time: '14:00' },
