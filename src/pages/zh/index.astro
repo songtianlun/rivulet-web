@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import App from '../../components/App.jsx';
+---
+
+<Layout
+  lang="zh"
+  title="溪流记账 · Rivulet"
+  description="极简但强大的记账应用。快速记录收支，管理多账户账本，掌握预算与投资，财务分析一目了然。"
+>
+  <App initialLang="zh" client:load />
+</Layout>

@@ -1,0 +1,12 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import App from '../../components/App.jsx';
+---
+
+<Layout
+  lang="en"
+  title="Rivulet · Personal Finance"
+  description="A minimalist yet powerful finance app. Track income and expenses fast, manage multiple accounts and ledgers, and unlock clear analytics."
+>
+  <App initialLang="en" client:load />
+</Layout>
