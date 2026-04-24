@@ -15,6 +15,7 @@ body {
     color: #1a1a1a;
     font-family: 'Noto Sans SC', 'Plus Jakarta Sans', sans-serif;
     -webkit-font-smoothing: antialiased;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 @keyframes fadeUp {
