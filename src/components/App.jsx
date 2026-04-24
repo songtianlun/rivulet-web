@@ -468,12 +468,7 @@ export default function App({ initialLang = 'auto' }) {
                 transition: 'all 0.3s ease',
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div style={{
-                        width: 28, height: 28, borderRadius: 8, background: theme.accent,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    }}>
-                        <Icon name="flow" size={15} color="#fff" />
-                    </div>
+                    <img src="/logo.png" alt="Rivulet logo" style={{ width: 28, height: 28, borderRadius: 8 }} />
                     <span style={{ fontSize: 16, fontWeight: 700, color: theme.text, letterSpacing: -0.3 }}>
                         {lang === 'zh' ? '溪流记账' : 'Rivulet'}
                     </span>
@@ -691,12 +686,7 @@ export default function App({ initialLang = 'auto' }) {
             }}>
                 <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8 }}>
-                        <div style={{
-                            width: 24, height: 24, borderRadius: 6, background: theme.accent,
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        }}>
-                            <Icon name="flow" size={13} color="#fff" />
-                        </div>
+                        <img src="/logo.png" alt="Rivulet logo" style={{ width: 24, height: 24, borderRadius: 6 }} />
                         <span style={{ fontWeight: 700, fontSize: 15 }}>{lang === 'zh' ? '溪流记账' : 'Rivulet'}</span>
                     </div>
                     <p style={{ fontSize: 13, color: theme.muted }}>{t.footer_tagline}</p>
