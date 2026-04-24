@@ -735,9 +735,9 @@ export default function App({ initialLang = 'auto' }) {
                 </div>
                 <div style={{ display: 'flex', gap: 24, alignItems: 'center' }}>
                     {[
-                        ['https://github.com/songtianlun/rivulet', 'github', t.footer_links[0]],
+                        ['https://github.com/songtianlun', 'github', t.footer_links[0]],
                         ['https://demo.rivulet.app/', null, t.footer_links[1]],
-                        ['https://github.com/songtianlun/rivulet/issues', null, t.footer_links[2]],
+                        ['https://github.com/songtianlun/rivulet-web/issues', null, t.footer_links[2]],
                     ].map(([href, icon, label], i) => (
                         <a
                             key={i} href={href} target="_blank" rel="noopener noreferrer"
