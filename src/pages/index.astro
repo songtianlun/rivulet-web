@@ -1,3 +1,8 @@
 ---
-return Astro.redirect('/zh/', 301);
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App.jsx';
 ---
+
+<Layout lang="en" title="溪流记账 · Rivulet">
+  <App initialLang="auto" client:load />
+</Layout>

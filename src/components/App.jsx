@@ -360,10 +360,23 @@ function FaqItem({ q, a, theme }) {
     );
 }
 
+// ── detect browser language ─────────────────────────────────
+function detectLang() {
+    if (typeof navigator === 'undefined') return 'en';
+    const nav = navigator.language || navigator.userLanguage || 'en';
+    return nav.toLowerCase().startsWith('zh') ? 'zh' : 'en';
+}
+
 // ── MAIN APP ──────────────────────────────────────────────────
-export default function App({ initialLang = 'zh' }) {
-    const lang = initialLang;
+export default function App({ initialLang = 'auto' }) {
+    const [lang, setLang] = useState(initialLang === 'auto' ? 'en' : initialLang);
     const [scrolled, setScrolled] = useState(false);
+
+    useEffect(() => {
+        if (initialLang === 'auto') {
+            setLang(detectLang());
+        }
+    }, [initialLang]);
     const t = T[lang];
     const theme = THEMES.classic;
 
