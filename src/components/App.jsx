@@ -1,22 +1,28 @@
 import { useState, useEffect, useRef } from 'react';
 
 // ── THEME TOKENS ──────────────────────────────────────────────
-const THEMES = {
-    classic: {
-        bg: '#ffffff', bgAlt: '#f7faf8', border: '#e4ede8',
-        text: '#1a1a1a', muted: '#6b7280', accent: '#3DAA6E',
-        accentDark: '#2a8a55', accentLight: '#e8f5ef',
-    },
-    nature: {
-        bg: '#faf9f6', bgAlt: '#f2f0eb', border: '#ddd8ce',
-        text: '#1c1c18', muted: '#7a7060', accent: '#4a9c68',
-        accentDark: '#366e4a', accentLight: '#eaf2ec',
-    },
-    contrast: {
-        bg: '#ffffff', bgAlt: '#f4f4f4', border: '#e0e0e0',
-        text: '#0a0a0a', muted: '#555555', accent: '#2d9e5f',
-        accentDark: '#1f7244', accentLight: '#e6f4ee',
-    },
+const LIGHT_THEME = {
+    bg: '#ffffff',
+    bgAlt: '#faf9ff',
+    bgCard: '#ffffff',
+    border: '#ede9fe',
+    text: '#1e1b2e',
+    muted: '#6d6a84',
+    accent: '#8B5CF6',
+    accentDark: '#7C3AED',
+    accentLight: '#f5f3ff',
+};
+
+const DARK_THEME = {
+    bg: '#0f0d1a',
+    bgAlt: '#13111f',
+    bgCard: '#1c1830',
+    border: '#2e2558',
+    text: '#ede9fe',
+    muted: '#9b93c4',
+    accent: '#a78bfa',
+    accentDark: '#c4b5fd',
+    accentLight: '#2d1f6e',
 };
 
 // ── I18N ──────────────────────────────────────────────────────
@@ -165,6 +171,23 @@ function Icon({ name, size = 20, color = 'currentColor' }) {
                 <path d="m6 9 6 6 6-6" />
             </svg>
         ),
+        sun: (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round">
+                <circle cx="12" cy="12" r="4" />
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+        ),
+        moon: (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+        ),
+        monitor: (
+            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <path d="M8 21h8M12 17v4" />
+            </svg>
+        ),
         github: (
             <svg width={size} height={size} viewBox="0 0 24 24" fill={color}>
                 <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z" />
@@ -205,14 +228,14 @@ function StreamDecor({ color }) {
 function MockDashboard({ theme, lang }) {
     const txZh = [
         { label: '早餐', cat: '餐饮', amt: '-¥18', color: '#ef4444', time: '08:30' },
-        { label: '工资', cat: '收入', amt: '+¥12,000', color: '#3DAA6E', time: '09:00' },
+        { label: '工资', cat: '收入', amt: '+¥12,000', color: theme.accent, time: '09:00' },
         { label: '地铁', cat: '交通', amt: '-¥4', color: '#ef4444', time: '09:15' },
         { label: '午餐', cat: '餐饮', amt: '-¥35', color: '#ef4444', time: '12:10' },
         { label: '基金买入', cat: '投资', amt: '-¥2,000', color: '#f59e0b', time: '14:00' },
     ];
     const txEn = [
         { label: 'Breakfast', cat: 'Dining', amt: '-¥18', color: '#ef4444', time: '08:30' },
-        { label: 'Salary', cat: 'Income', amt: '+¥12,000', color: '#3DAA6E', time: '09:00' },
+        { label: 'Salary', cat: 'Income', amt: '+¥12,000', color: theme.accent, time: '09:00' },
         { label: 'Metro', cat: 'Transport', amt: '-¥4', color: '#ef4444', time: '09:15' },
         { label: 'Lunch', cat: 'Dining', amt: '-¥35', color: '#ef4444', time: '12:10' },
         { label: 'Fund Buy', cat: 'Investment', amt: '-¥2,000', color: '#f59e0b', time: '14:00' },
@@ -229,8 +252,8 @@ function MockDashboard({ theme, lang }) {
 
     return (
         <div style={{
-            background: '#fff', borderRadius: 20,
-            boxShadow: '0 24px 80px rgba(0,0,0,0.12), 0 4px 20px rgba(0,0,0,0.06)',
+            background: theme.bgCard, borderRadius: 20,
+            boxShadow: '0 24px 80px rgba(0,0,0,0.18), 0 4px 20px rgba(0,0,0,0.08)',
             width: '100%', maxWidth: 560, overflow: 'hidden',
             fontFamily: "'Noto Sans SC', sans-serif", userSelect: 'none',
         }}>
@@ -248,7 +271,7 @@ function MockDashboard({ theme, lang }) {
                     {[
                         [lang === 'zh' ? '收入' : 'Income', '¥12,000', null],
                         [lang === 'zh' ? '支出' : 'Expense', '¥2,057', null],
-                        [lang === 'zh' ? '预算' : 'Budget', '82%', '#a8f0c6'],
+                        [lang === 'zh' ? '预算' : 'Budget', '82%', '#ddd6fe'],
                     ].map(([label, val, clr]) => (
                         <div key={label}>
                             <div style={{ fontSize: 10, opacity: 0.7 }}>{label}</div>
@@ -264,7 +287,7 @@ function MockDashboard({ theme, lang }) {
                     <span>{lang === 'zh' ? '月度预算' : 'Monthly Budget'}</span>
                     <span>¥2,057 / ¥2,500</span>
                 </div>
-                <div style={{ height: 5, background: '#e0e0e0', borderRadius: 3, overflow: 'hidden' }}>
+                <div style={{ height: 5, background: theme.border, borderRadius: 3, overflow: 'hidden' }}>
                     <div style={{ width: '82%', height: '100%', background: theme.accent, borderRadius: 3, transition: 'width 1s ease' }} />
                 </div>
             </div>
@@ -371,14 +394,42 @@ function detectLang() {
 export default function App({ initialLang = 'auto' }) {
     const [lang, setLang] = useState(initialLang === 'auto' ? 'en' : initialLang);
     const [scrolled, setScrolled] = useState(false);
+    const [colorMode, setColorMode] = useState('system'); // 'light' | 'dark' | 'system'
+    const [systemDark, setSystemDark] = useState(false);
 
     useEffect(() => {
         if (initialLang === 'auto') {
             setLang(detectLang());
         }
     }, [initialLang]);
+
+    // Restore saved color mode
+    useEffect(() => {
+        const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('rivulet-color-mode') : null;
+        if (saved === 'light' || saved === 'dark' || saved === 'system') {
+            setColorMode(saved);
+        }
+    }, []);
+
+    // Track system dark preference
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        setSystemDark(mq.matches);
+        const handler = (e) => setSystemDark(e.matches);
+        mq.addEventListener('change', handler);
+        return () => mq.removeEventListener('change', handler);
+    }, []);
+
+    const isDark = colorMode === 'dark' || (colorMode === 'system' && systemDark);
+    const theme = isDark ? DARK_THEME : LIGHT_THEME;
+
+    const handleColorMode = (mode) => {
+        setColorMode(mode);
+        if (typeof localStorage !== 'undefined') localStorage.setItem('rivulet-color-mode', mode);
+    };
+
     const t = T[lang];
-    const theme = THEMES.classic;
 
     useEffect(() => {
         const fn = () => setScrolled(window.scrollY > 50);
@@ -404,15 +455,15 @@ export default function App({ initialLang = 'auto' }) {
     ];
 
     return (
-        <div style={{ background: theme.bg, color: theme.text, minHeight: '100vh' }}>
+        <div style={{ background: theme.bg, color: theme.text, minHeight: '100vh', transition: 'background 0.3s ease, color 0.3s ease' }}>
 
             {/* ── NAV ── */}
             <nav style={{
                 position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
                 padding: '0 clamp(24px, 5vw, 80px)', height: 64,
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                background: scrolled ? theme.bg + 'f0' : 'transparent',
-                backdropFilter: scrolled ? 'blur(12px)' : 'none',
+                background: scrolled ? theme.bg + 'f2' : 'transparent',
+                backdropFilter: scrolled ? 'blur(16px)' : 'none',
                 borderBottom: scrolled ? `1px solid ${theme.border}` : '1px solid transparent',
                 transition: 'all 0.3s ease',
             }}>
@@ -428,7 +479,7 @@ export default function App({ initialLang = 'auto' }) {
                     </span>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                     <div style={{ display: 'flex', gap: 24, fontSize: 14, color: theme.muted }}>
                         {[['#features', t.nav_features], ['#faq', t.nav_faq]].map(([href, label]) => (
                             <a
@@ -439,6 +490,35 @@ export default function App({ initialLang = 'auto' }) {
                             >
                                 {label}
                             </a>
+                        ))}
+                    </div>
+
+                    {/* Color mode toggle */}
+                    <div style={{
+                        display: 'flex', alignItems: 'center',
+                        background: theme.bgAlt, borderRadius: 24,
+                        border: `1px solid ${theme.border}`, padding: '3px',
+                        gap: 2,
+                    }}>
+                        {[
+                            { mode: 'light', icon: 'sun',     label: lang === 'zh' ? '白天' : 'Light' },
+                            { mode: 'system', icon: 'monitor', label: lang === 'zh' ? '跟随系统' : 'Auto' },
+                            { mode: 'dark',  icon: 'moon',    label: lang === 'zh' ? '夜晚' : 'Dark' },
+                        ].map(({ mode, icon, label }) => (
+                            <button
+                                key={mode}
+                                onClick={() => handleColorMode(mode)}
+                                title={label}
+                                style={{
+                                    width: 28, height: 28, borderRadius: 20, border: 'none',
+                                    cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: colorMode === mode ? theme.accent : 'transparent',
+                                    color: colorMode === mode ? '#fff' : theme.muted,
+                                    transition: 'background 0.2s ease, color 0.2s ease',
+                                }}
+                            >
+                                <Icon name={icon} size={14} color={colorMode === mode ? '#fff' : theme.muted} />
+                            </button>
                         ))}
                     </div>
 
