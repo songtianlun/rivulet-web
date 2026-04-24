@@ -61,6 +61,10 @@ const T = {
         a4: '在账本管理中，将账本分享给系统内的其他用户即可。被分享者可以查看账本的所有记录与统计数据。',
         q5: '可以自己部署吗？',
         a5: '当然可以，自部署是我们首要推荐的方式。GitHub 仓库中提供了完整的部署文档（开发中，即将开放）。',
+        community_title: '加入社区',
+        community_sub: '有任何疑问或想法？扫描下方二维码，或微信搜索 frytea26 添加开发者为好友，我会将你拉进交流群，一起参与讨论、共同完善 Rivulet。备注 rivulet 即可。',
+        community_wechat: '微信扫码 / 搜索 frytea26',
+        community_note: '备注 rivulet，期待与你交流 👋',
         footer_tagline: '让财务流动清晰可见',
         footer_copy: '© 2025 Rivulet · 溪流记账',
         footer_links: ['GitHub', 'Demo', '问题反馈'],
@@ -106,6 +110,10 @@ const T = {
         a4: 'In ledger settings, share the ledger with any registered user. They can then view all records and analytics for that ledger.',
         q5: 'Can I self-host it?',
         a5: 'Absolutely. Self-hosting is our first recommendation. Full deployment docs are included in the GitHub repository (coming soon).',
+        community_title: 'Join the Community',
+        community_sub: 'Have questions or ideas? Scan the QR code or search WeChat ID frytea26 to add the developer as a friend. I\'ll invite you to the discussion group where we share tips and shape Rivulet together. Leave a note: rivulet.',
+        community_wechat: 'Scan QR / Search frytea26 on WeChat',
+        community_note: 'Note: rivulet — looking forward to chatting 👋',
         footer_tagline: 'Making money flows visible',
         footer_copy: '© 2025 Rivulet',
         footer_links: ['GitHub', 'Demo', 'Feedback'],
@@ -674,6 +682,39 @@ export default function App({ initialLang = 'auto' }) {
                     {faqs.map((faq, i) => (
                         <FaqItem key={i} q={faq.q} a={faq.a} theme={theme} />
                     ))}
+                </div>
+            </section>
+
+            {/* ── COMMUNITY ── */}
+            <section style={{ padding: '80px clamp(24px, 8vw, 120px)' }}>
+                <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
+                    <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 700, letterSpacing: -1, marginBottom: 16 }}>
+                        {t.community_title}
+                    </h2>
+                    <p style={{ fontSize: 16, color: theme.muted, lineHeight: 1.85, fontWeight: 300, marginBottom: 40 }}>
+                        {t.community_sub}
+                    </p>
+                    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+                        <div style={{
+                            padding: 12, borderRadius: 20, border: `1.5px solid ${theme.border}`,
+                            background: theme.bgCard,
+                            boxShadow: `0 8px 32px ${theme.accent}18`,
+                        }}>
+                            <img
+                                src="/wechat-tls2.JPG"
+                                alt="WeChat QR Code"
+                                style={{ width: 180, height: 180, borderRadius: 12, display: 'block', objectFit: 'cover' }}
+                            />
+                        </div>
+                        <div style={{ fontSize: 13, color: theme.muted }}>{t.community_wechat}</div>
+                        <div style={{
+                            fontSize: 13, color: theme.accent, fontWeight: 500,
+                            padding: '6px 16px', borderRadius: 20,
+                            background: theme.accentLight, border: `1px solid ${theme.border}`,
+                        }}>
+                            {t.community_note}
+                        </div>
+                    </div>
                 </div>
             </section>
 
