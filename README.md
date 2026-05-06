@@ -1,7 +1,7 @@
 # Rivulet
 
 <p align="center">
-  <img src="web/admin/src/assets/logo.png" width="120" alt="Rivulet Logo" />
+  <img src="public/logo.png" width="120" alt="Rivulet Logo" />
 </p>
 
 [![codecov](https://codecov.io/gh/songtianlun/rivulet/graph/badge.svg?token=78qRn2zmPD)](https://codecov.io/gh/songtianlun/rivulet)
