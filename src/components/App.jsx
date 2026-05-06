@@ -37,8 +37,20 @@ const T = {
         hero_h1_b: '流向清晰可控',
         hero_sub: '极简但强大的记账应用。快速记录收支，管理多账户账本，掌握预算与投资，财务分析一目了然。',
         hero_cta: '立即体验 Demo',
-        hero_cta2: '了解功能',
+        hero_cta2: '快速部署',
         hero_badge: '支持自托管 · 完全自主掌控您的数据',
+        nav_quickstart: '快速部署',
+        quickstart_title: '快速部署',
+        quickstart_sub: '几行命令即可启动，支持 SQLite 与 PostgreSQL 两种数据库',
+        quickstart_tab_sqlite: 'SQLite（默认）',
+        quickstart_tab_pg: 'PostgreSQL',
+        quickstart_step1: '运行容器',
+        quickstart_step2: '持久化数据（推荐）',
+        quickstart_pg_note: '默认使用内置 SQLite 数据库，如需切换到 PostgreSQL，请配置以下环境变量：',
+        quickstart_more: '查看完整文档',
+        quickstart_more_sub: '更多配置选项、环境变量与高级部署方案',
+        quickstart_note_open: '在浏览器中访问 http://localhost:2212',
+        quickstart_note_persist: '数据写入宿主机 ./data 目录，重启容器不会丢失数据',
         features_title: '功能全面，操作简单',
         features_sub: '从日常记账到投资管理，溪流记账覆盖你所有的财务需求',
         f1_t: '流水记录', f1_d: '快速记录收入与支出，支持类型、备注、时间与账户关联，轻松掌握每日资金流向。',
@@ -80,8 +92,20 @@ const T = {
         hero_h1_b: 'where your money flows',
         hero_sub: 'A minimalist yet powerful finance app. Track income and expenses fast, manage multiple accounts and ledgers, and unlock clear analytics to understand where your money goes.',
         hero_cta: 'Try Demo',
-        hero_cta2: 'See Features',
+        hero_cta2: 'Quick Deploy',
         hero_badge: 'Supports Self-Hosting · Full Control Over Your Data',
+        nav_quickstart: 'Quick Deploy',
+        quickstart_title: 'Quick Deploy',
+        quickstart_sub: 'Up and running in minutes. Supports SQLite and PostgreSQL.',
+        quickstart_tab_sqlite: 'SQLite (Default)',
+        quickstart_tab_pg: 'PostgreSQL',
+        quickstart_step1: 'Run Container',
+        quickstart_step2: 'Persist Data (Recommended)',
+        quickstart_pg_note: 'By default, Rivulet uses an embedded SQLite database. To switch to PostgreSQL, set these environment variables:',
+        quickstart_more: 'View Full Docs',
+        quickstart_more_sub: 'More config options, env vars & advanced deployment',
+        quickstart_note_open: 'Open http://localhost:2212 in your browser',
+        quickstart_note_persist: 'Data is stored in ./data on your host and persists across container restarts',
         features_title: "Everything you need, nothing you don't",
         features_sub: 'From daily tracking to investment management, Rivulet covers all your financial needs',
         f1_t: 'Transaction Log',
@@ -211,22 +235,22 @@ function StreamDecor({ color }) {
         <svg
             viewBox="0 0 400 200"
             fill="none"
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.12 }}
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', opacity: 0.18 }}
         >
             <path
                 d="M0 100 Q50 60 100 100 Q150 140 200 100 Q250 60 300 100 Q350 140 400 100"
-                stroke={color} strokeWidth="1.5" fill="none" strokeDasharray="800"
-                style={{ animation: 'streamFlow 4s ease forwards' }}
+                stroke={color} strokeWidth="1.5" fill="none" strokeDasharray="120 80"
+                style={{ animation: 'streamFlow 10s linear infinite' }}
             />
             <path
                 d="M0 130 Q60 90 120 130 Q180 170 240 130 Q300 90 360 130 Q380 110 400 130"
-                stroke={color} strokeWidth="1" fill="none" opacity="0.7" strokeDasharray="800"
-                style={{ animation: 'streamFlow 4.5s ease 0.5s forwards' }}
+                stroke={color} strokeWidth="1" fill="none" opacity="0.7" strokeDasharray="80 120"
+                style={{ animation: 'streamFlow 13s linear infinite 1.5s' }}
             />
             <path
                 d="M0 70 Q70 30 140 70 Q210 110 280 70 Q340 30 400 70"
-                stroke={color} strokeWidth="0.8" fill="none" opacity="0.5" strokeDasharray="800"
-                style={{ animation: 'streamFlow 5s ease 1s forwards' }}
+                stroke={color} strokeWidth="0.8" fill="none" opacity="0.5" strokeDasharray="100 100"
+                style={{ animation: 'streamFlow 16s linear infinite 3s' }}
             />
         </svg>
     );
@@ -391,6 +415,243 @@ function FaqItem({ q, a, theme }) {
     );
 }
 
+// ── CODE BLOCK ────────────────────────────────────────────────
+function CodeBlock({ code, lang = 'en' }) {
+    const [copied, setCopied] = useState(false);
+    const handleCopy = () => {
+        navigator.clipboard.writeText(code).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
+    return (
+        <div style={{ background: '#0d1117', borderRadius: 12, border: '1px solid #30363d', overflow: 'hidden' }}>
+            {/* Terminal chrome */}
+            <div style={{
+                display: 'flex', alignItems: 'center', gap: 6,
+                padding: '10px 16px', borderBottom: '1px solid #21262d',
+                background: '#161b22',
+            }}>
+                {['#ff5f57', '#febc2e', '#28c840'].map((c, i) => (
+                    <div key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c }} />
+                ))}
+            </div>
+            {/* Code */}
+            <div style={{ padding: '18px 22px', position: 'relative' }}>
+                <button
+                    onClick={handleCopy}
+                    style={{
+                        position: 'absolute', top: 10, right: 12,
+                        padding: '3px 11px', borderRadius: 6, border: '1px solid #30363d',
+                        background: '#21262d', color: copied ? '#3fb950' : '#8b949e',
+                        fontSize: 11, cursor: 'pointer',
+                        fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
+                        transition: 'all 0.2s',
+                    }}
+                >
+                    {copied ? '✓' : lang === 'zh' ? '复制' : 'Copy'}
+                </button>
+                <pre style={{
+                    margin: 0, fontSize: 13, lineHeight: 1.85, color: '#e6edf3',
+                    fontFamily: "'JetBrains Mono', 'Fira Code', 'Courier New', monospace",
+                    whiteSpace: 'pre', overflowX: 'auto',
+                }}>
+                    {code}
+                </pre>
+            </div>
+        </div>
+    );
+}
+
+// ── QUICK DEPLOY SECTION ──────────────────────────────────────
+function QuickDeploySection({ theme, lang, t }) {
+    const [activeTab, setActiveTab] = useState('sqlite');
+
+    const sqliteSimpleCode = `docker run --rm -p 2212:2212 rivulet:latest`;
+
+    const sqlitePersistCode = lang === 'zh'
+        ? `mkdir -p ./data\n\ndocker run -d \\\n  --name rivulet \\\n  -p 2212:2212 \\\n  -v $(pwd)/data:/app/data \\\n  rivulet:latest`
+        : `mkdir -p ./data\n\ndocker run -d \\\n  --name rivulet \\\n  -p 2212:2212 \\\n  -v $(pwd)/data:/app/data \\\n  rivulet:latest`;
+
+    const pgCode = `docker run --rm \\\n  -p 2212:2212 \\\n  -e RIVULET_DB_DRIVER=postgres \\\n  -e RIVULET_DB_DSN="host=your-host user=your-user password=your-password dbname=your-db sslmode=disable" \\\n  rivulet:latest`;
+
+    const sqliteSteps = [
+        { num: 1, title: t.quickstart_step1, code: sqliteSimpleCode, note: t.quickstart_note_open },
+        { num: 2, title: t.quickstart_step2, code: sqlitePersistCode, note: t.quickstart_note_persist },
+    ];
+
+    return (
+        <section id="quickstart" style={{
+            padding: '100px clamp(24px, 8vw, 120px)',
+            background: theme.bgAlt,
+            position: 'relative', overflow: 'hidden',
+        }}>
+            {/* Decorative gradient */}
+            <div style={{
+                position: 'absolute', top: -120, right: -80,
+                width: 440, height: 440, borderRadius: '50%',
+                background: `radial-gradient(circle, ${theme.accent}12 0%, transparent 70%)`,
+                pointerEvents: 'none',
+            }} />
+            <div style={{
+                position: 'absolute', bottom: -80, left: -60,
+                width: 300, height: 300, borderRadius: '50%',
+                background: `radial-gradient(circle, ${theme.accent}08 0%, transparent 70%)`,
+                pointerEvents: 'none',
+            }} />
+
+            <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative' }}>
+                {/* Header */}
+                <div style={{ textAlign: 'center', marginBottom: 56 }}>
+                    <div style={{
+                        display: 'inline-flex', alignItems: 'center', gap: 7,
+                        padding: '5px 16px', borderRadius: 20, border: `1px solid ${theme.border}`,
+                        background: theme.bg, marginBottom: 20,
+                        fontSize: 12, color: theme.accent, fontWeight: 500,
+                    }}>
+                        <span style={{ fontSize: 14 }}>🐳</span> Docker
+                    </div>
+                    <h2 style={{
+                        fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700,
+                        letterSpacing: -1, marginBottom: 14, color: theme.text,
+                    }}>
+                        {t.quickstart_title}
+                    </h2>
+                    <p style={{ fontSize: 16, color: theme.muted, fontWeight: 300, maxWidth: 480, margin: '0 auto' }}>
+                        {t.quickstart_sub}
+                    </p>
+                </div>
+
+                {/* Tab switcher */}
+                <div style={{
+                    display: 'flex', gap: 6, marginBottom: 36,
+                    background: theme.bg, borderRadius: 14, padding: 5,
+                    border: `1px solid ${theme.border}`,
+                }}>
+                    {[
+                        { key: 'sqlite', label: t.quickstart_tab_sqlite, emoji: '🗄️' },
+                        { key: 'pg', label: t.quickstart_tab_pg, emoji: '🐘' },
+                    ].map(({ key, label, emoji }) => (
+                        <button
+                            key={key}
+                            onClick={() => setActiveTab(key)}
+                            style={{
+                                flex: 1, padding: '11px 16px', borderRadius: 10, border: 'none',
+                                cursor: 'pointer', fontSize: 14, fontWeight: 500,
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 7,
+                                background: activeTab === key
+                                    ? `linear-gradient(135deg, ${theme.accent}28, ${theme.accent}12)`
+                                    : 'transparent',
+                                color: activeTab === key ? theme.accent : theme.muted,
+                                boxShadow: activeTab === key ? `0 2px 12px ${theme.accent}20, inset 0 0 0 1px ${theme.accent}30` : 'none',
+                                transition: 'all 0.25s',
+                            }}
+                        >
+                            <span>{emoji}</span>
+                            {label}
+                        </button>
+                    ))}
+                </div>
+
+                {/* SQLite tab */}
+                {activeTab === 'sqlite' && (
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                        {sqliteSteps.map((step) => (
+                            <div key={step.num} style={{
+                                borderRadius: 16, border: `1px solid ${theme.border}`,
+                                overflow: 'hidden',
+                                boxShadow: `0 4px 20px ${theme.accent}08`,
+                            }}>
+                                <div style={{
+                                    padding: '14px 20px', borderBottom: `1px solid ${theme.border}`,
+                                    display: 'flex', alignItems: 'center', gap: 12,
+                                    background: theme.accentLight,
+                                }}>
+                                    <div style={{
+                                        width: 26, height: 26, borderRadius: '50%',
+                                        background: theme.accent, color: '#fff',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        fontSize: 12, fontWeight: 700, flexShrink: 0,
+                                    }}>
+                                        {step.num}
+                                    </div>
+                                    <span style={{ fontSize: 14, fontWeight: 600, color: theme.text }}>{step.title}</span>
+                                </div>
+                                <CodeBlock code={step.code} lang={lang} />
+                                {step.note && (
+                                    <div style={{
+                                        padding: '10px 20px', fontSize: 12, color: theme.muted,
+                                        borderTop: `1px solid ${theme.border}`,
+                                        background: theme.bg,
+                                        display: 'flex', alignItems: 'center', gap: 6,
+                                    }}>
+                                        <span style={{ color: theme.accent, fontSize: 14 }}>ℹ</span>
+                                        {step.note}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {/* PostgreSQL tab */}
+                {activeTab === 'pg' && (
+                    <div style={{
+                        borderRadius: 16, border: `1px solid ${theme.border}`,
+                        overflow: 'hidden', boxShadow: `0 4px 20px ${theme.accent}08`,
+                    }}>
+                        <div style={{
+                            padding: '14px 20px', borderBottom: `1px solid ${theme.border}`,
+                            background: theme.accentLight,
+                        }}>
+                            <p style={{ fontSize: 13, color: theme.muted, margin: 0, lineHeight: 1.7 }}>
+                                {t.quickstart_pg_note}
+                            </p>
+                        </div>
+                        <CodeBlock code={pgCode} lang={lang} />
+                    </div>
+                )}
+
+                {/* GitHub CTA */}
+                <div style={{
+                    marginTop: 40, padding: '22px 28px', borderRadius: 16,
+                    background: theme.bg, border: `1px solid ${theme.border}`,
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    flexWrap: 'wrap', gap: 16,
+                    boxShadow: `0 2px 12px ${theme.accent}08`,
+                }}>
+                    <div>
+                        <div style={{ fontSize: 15, fontWeight: 600, color: theme.text, marginBottom: 5 }}>
+                            {t.quickstart_more}
+                        </div>
+                        <div style={{ fontSize: 13, color: theme.muted }}>
+                            {t.quickstart_more_sub}
+                        </div>
+                    </div>
+                    <a
+                        href="https://github.com/songtianlun/rivulet-docs"
+                        target="_blank" rel="noopener noreferrer"
+                        style={{
+                            display: 'inline-flex', alignItems: 'center', gap: 8,
+                            padding: '11px 24px', borderRadius: 28,
+                            background: '#24292f', color: '#e6edf3',
+                            textDecoration: 'none', fontSize: 14, fontWeight: 500,
+                            boxShadow: '0 2px 10px rgba(0,0,0,0.25)',
+                            transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.background = '#2d333b'; e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.35)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = '#24292f'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 2px 10px rgba(0,0,0,0.25)'; }}
+                    >
+                        <Icon name="github" size={16} color="#e6edf3" />
+                        GitHub
+                        <Icon name="arrow" size={14} color="#e6edf3" />
+                    </a>
+                </div>
+            </div>
+        </section>
+    );
+}
+
 // ── detect browser language ─────────────────────────────────
 function detectLang() {
     if (typeof navigator === 'undefined') return 'en';
@@ -484,7 +745,7 @@ export default function App({ initialLang = 'auto' }) {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                     <div style={{ display: 'flex', gap: 24, fontSize: 14, color: theme.muted }}>
-                        {[['#features', t.nav_features], ['#faq', t.nav_faq]].map(([href, label]) => (
+                        {[['#quickstart', t.nav_quickstart], ['#features', t.nav_features], ['#faq', t.nav_faq]].map(([href, label]) => (
                             <a
                                 key={href} href={href}
                                 style={{ color: theme.muted, textDecoration: 'none', transition: 'color 0.2s' }}
@@ -615,7 +876,7 @@ export default function App({ initialLang = 'auto' }) {
                             {t.hero_cta} <Icon name="arrow" size={16} color="#fff" />
                         </a>
                         <a
-                            href="#features"
+                            href="#quickstart"
                             style={{
                                 display: 'inline-flex', alignItems: 'center', gap: 8,
                                 padding: '14px 28px', borderRadius: 32, border: `1.5px solid ${theme.border}`,
@@ -631,10 +892,13 @@ export default function App({ initialLang = 'auto' }) {
                 </div>
             </section>
 
+            {/* ── QUICK DEPLOY ── */}
+            <QuickDeploySection theme={theme} lang={lang} t={t} />
+
             {/* ── MOCK DEMO ── */}
             <section style={{
                 padding: '80px clamp(24px, 8vw, 120px)',
-                background: theme.bgAlt,
+                background: theme.bg,
                 display: 'flex', flexDirection: 'column', alignItems: 'center',
                 textAlign: 'center', gap: 48,
             }}>
@@ -644,13 +908,13 @@ export default function App({ initialLang = 'auto' }) {
                     </h2>
                     <p style={{ fontSize: 16, color: theme.muted, fontWeight: 300 }}>{t.demo_sub}</p>
                 </div>
-                <div style={{ animation: 'float 4s ease-in-out infinite', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <div style={{ animation: 'float 7s ease-in-out infinite', width: '100%', display: 'flex', justifyContent: 'center' }}>
                     <MockDashboard theme={theme} lang={lang} />
                 </div>
             </section>
 
             {/* ── FEATURES ── */}
-            <section id="features" style={{ padding: '100px clamp(24px, 8vw, 120px)' }}>
+            <section id="features" style={{ padding: '100px clamp(24px, 8vw, 120px)', background: theme.bgAlt }}>
                 <div style={{ textAlign: 'center', marginBottom: 64 }}>
                     <h2 style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 700, letterSpacing: -1, marginBottom: 12 }}>
                         {t.features_title}
@@ -671,7 +935,7 @@ export default function App({ initialLang = 'auto' }) {
             </section>
 
             {/* ── FAQ ── */}
-            <section id="faq" style={{ padding: '80px clamp(24px, 8vw, 120px)', background: theme.bgAlt }}>
+            <section id="faq" style={{ padding: '80px clamp(24px, 8vw, 120px)', background: theme.bg }}>
                 <div style={{ maxWidth: 720, margin: '0 auto' }}>
                     <div style={{ textAlign: 'center', marginBottom: 48 }}>
                         <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 700, letterSpacing: -1, marginBottom: 10 }}>
@@ -686,7 +950,7 @@ export default function App({ initialLang = 'auto' }) {
             </section>
 
             {/* ── COMMUNITY ── */}
-            <section style={{ padding: '80px clamp(24px, 8vw, 120px)' }}>
+            <section style={{ padding: '80px clamp(24px, 8vw, 120px)', background: theme.bgAlt }}>
                 <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
                     <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 700, letterSpacing: -1, marginBottom: 16 }}>
                         {t.community_title}
