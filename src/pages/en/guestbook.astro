@@ -1,0 +1,176 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  lang="en"
+  title="Guestbook · Rivulet"
+  description="Leave a message, share your thoughts or feedback, and help Rivulet grow."
+>
+  <div class="guestbook-page">
+    <header class="gb-header">
+      <a href="/en/" class="gb-back">← Back to Home</a>
+      <div class="gb-logo">
+        <img src="/logo.png" alt="Rivulet logo" />
+        <span>Rivulet</span>
+      </div>
+      <a href="/zh/guestbook" class="gb-lang">中文</a>
+    </header>
+
+    <main class="gb-main">
+      <div class="gb-hero">
+        <h1>Guestbook</h1>
+        <p>Got something to say? Leave a message, share your thoughts, suggestions or feedback. 💬</p>
+      </div>
+
+      <div class="gb-comments">
+        <script src="https://giscus.app/client.js"
+          data-repo="songtianlun/rivulet-docs"
+          data-repo-id="R_kgDOSLEHdA"
+          data-category="General"
+          data-category-id="DIC_kwDOSLEHdM4C8arw"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="bottom"
+          data-theme="preferred_color_scheme"
+          data-lang="en"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+    </main>
+
+    <footer class="gb-footer">
+      <p>© 2025 Rivulet · <a href="https://github.com/songtianlun/rivulet-docs" target="_blank" rel="noopener">GitHub</a></p>
+    </footer>
+  </div>
+</Layout>
+
+<style>
+  .guestbook-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
+    background: #faf9ff;
+    color: #1e1b2e;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .guestbook-page {
+      background: #0f0d1a;
+      color: #ede9fe;
+    }
+    .gb-header {
+      background: #13111f !important;
+      border-bottom-color: #2e2558 !important;
+    }
+    .gb-back, .gb-lang {
+      color: #9b93c4 !important;
+      border-color: #2e2558 !important;
+    }
+    .gb-back:hover, .gb-lang:hover {
+      color: #a78bfa !important;
+      border-color: #a78bfa !important;
+    }
+    .gb-hero p {
+      color: #9b93c4 !important;
+    }
+  }
+
+  .gb-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(24px, 5vw, 80px);
+    height: 64px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid #ede9fe;
+  }
+
+  .gb-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e1b2e;
+  }
+
+  .gb-logo img {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .gb-back, .gb-lang {
+    font-size: 13px;
+    color: #6d6a84;
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid #ede9fe;
+    transition: all 0.2s;
+  }
+
+  .gb-back:hover, .gb-lang:hover {
+    color: #8B5CF6;
+    border-color: #8B5CF6;
+  }
+
+  .gb-main {
+    flex: 1;
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(40px, 6vw, 80px) clamp(20px, 4vw, 40px);
+  }
+
+  .gb-hero {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .gb-hero h1 {
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .gb-hero p {
+    font-size: 16px;
+    color: #6d6a84;
+    line-height: 1.6;
+  }
+
+  .gb-comments {
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .gb-footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 13px;
+    color: #6d6a84;
+  }
+
+  .gb-footer a {
+    color: #8B5CF6;
+    text-decoration: none;
+  }
+
+  .gb-footer a:hover {
+    text-decoration: underline;
+  }
+</style>

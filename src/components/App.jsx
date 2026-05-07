@@ -32,6 +32,7 @@ const T = {
         nav_github: 'GitHub',
         nav_features: '功能',
         nav_faq: 'FAQ',
+        nav_guestbook: '留言板',
         hero_eyebrow: '个人财务管理',
         hero_h1_a: '让你的钱',
         hero_h1_b: '流向清晰可控',
@@ -87,6 +88,7 @@ const T = {
         nav_github: 'GitHub',
         nav_features: 'Features',
         nav_faq: 'FAQ',
+        nav_guestbook: 'Guestbook',
         hero_eyebrow: 'Personal Finance',
         hero_h1_a: 'See exactly',
         hero_h1_b: 'where your money flows',
@@ -745,7 +747,7 @@ export default function App({ initialLang = 'auto' }) {
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
                     <div style={{ display: 'flex', gap: 24, fontSize: 14, color: theme.muted }}>
-                        {[['#quickstart', t.nav_quickstart], ['#features', t.nav_features], ['#faq', t.nav_faq]].map(([href, label]) => (
+                        {[['#quickstart', t.nav_quickstart], ['#features', t.nav_features], ['#faq', t.nav_faq], [(lang === 'zh' ? '/zh/guestbook' : '/en/guestbook'), t.nav_guestbook]].map(([href, label]) => (
                             <a
                                 key={href} href={href}
                                 style={{ color: theme.muted, textDecoration: 'none', transition: 'color 0.2s' }}
