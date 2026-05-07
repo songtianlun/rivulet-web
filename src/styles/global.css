@@ -74,3 +74,13 @@ body {
     background: #c4b5fd;
     border-radius: 2px;
 }
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+@keyframes progress {
+    from { width: 0; }
+    to { width: 100%; }
+}

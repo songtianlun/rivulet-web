@@ -654,6 +654,200 @@ function QuickDeploySection({ theme, lang, t }) {
     );
 }
 
+// ── SCREENSHOT CAROUSEL ──────────────────────────────────────
+const SCREENSHOTS = [
+    { file: 'Rivulet_dashboard_2026-05-07_22-29-38.png',    zh: '仪表盘',   en: 'Dashboard' },
+    { file: 'Rivulet_transactions_2026-05-07_22-29-51.png', zh: '流水记录', en: 'Transactions' },
+    { file: 'Rivulet_accounts_2026-05-07_22-35-45.png',     zh: '账户管理', en: 'Accounts' },
+    { file: 'Rivulet_ledgers_2026-05-07_22-35-37.png',      zh: '多账本',   en: 'Ledgers' },
+    { file: 'Rivulet_budgets_2026-05-07_22-35-12.png',      zh: '预算规划', en: 'Budgets' },
+    { file: 'Rivulet_investments_2026-05-07_22-35-26.png',  zh: '投资管理', en: 'Investments' },
+    { file: 'Rivulet_settings_2026-05-07_22-36-01.png',     zh: '设置',     en: 'Settings' },
+];
+
+function ScreenshotCarousel({ theme, lang }) {
+    const slides = SCREENSHOTS.map(s => ({
+        src: `/screenshots/${s.file}`,
+        label: lang === 'zh' ? s.zh : s.en,
+    }));
+
+    const [current, setCurrent] = useState(0);
+    const [loaded, setLoaded] = useState(() => new Set([0, 1]));
+    const [paused, setPaused] = useState(false);
+    const [touchStartX, setTouchStartX] = useState(null);
+    const containerRef = useRef(null);
+    const [inView, setInView] = useState(false);
+
+    useEffect(() => {
+        const obs = new IntersectionObserver(
+            ([e]) => { if (e.isIntersecting) setInView(true); },
+            { threshold: 0.15 }
+        );
+        if (containerRef.current) obs.observe(containerRef.current);
+        return () => obs.disconnect();
+    }, []);
+
+    // Pre-load current + next slide
+    useEffect(() => {
+        setLoaded(prev => {
+            const s = new Set(prev);
+            s.add(current);
+            s.add((current + 1) % slides.length);
+            return s;
+        });
+    }, [current, slides.length]);
+
+    // Auto-advance
+    useEffect(() => {
+        if (paused || !inView) return;
+        const id = setInterval(() => setCurrent(c => (c + 1) % slides.length), 4500);
+        return () => clearInterval(id);
+    }, [paused, inView, slides.length]);
+
+    const goPrev = () => setCurrent(c => (c - 1 + slides.length) % slides.length);
+    const goNext = () => setCurrent(c => (c + 1) % slides.length);
+
+    const onTouchStart = (e) => setTouchStartX(e.touches[0].clientX);
+    const onTouchEnd = (e) => {
+        if (touchStartX === null) return;
+        const delta = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(delta) > 48) { delta > 0 ? goNext() : goPrev(); }
+        setTouchStartX(null);
+    };
+
+    const arrowStyle = (side) => ({
+        position: 'absolute', top: '50%',
+        ...(side === 'left' ? { left: 12 } : { right: 12 }),
+        transform: 'translateY(-50%)',
+        width: 40, height: 40, borderRadius: '50%',
+        border: 'none', background: 'rgba(0,0,0,0.38)',
+        backdropFilter: 'blur(8px)',
+        color: '#fff', fontSize: 24, fontWeight: 300,
+        cursor: 'pointer', zIndex: 3,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        transition: 'background 0.2s, transform 0.2s',
+        lineHeight: 1, padding: 0,
+    });
+
+    return (
+        <div ref={containerRef} style={{ width: '100%', maxWidth: 960, margin: '0 auto' }}>
+            {/* Viewport */}
+            <div
+                style={{
+                    position: 'relative', borderRadius: 20, overflow: 'hidden',
+                    boxShadow: `0 32px 80px rgba(0,0,0,0.22), 0 4px 24px ${theme.accent}22`,
+                    border: `1px solid ${theme.border}`,
+                    background: theme.bgCard,
+                    aspectRatio: '16 / 9',
+                }}
+                onMouseEnter={() => setPaused(true)}
+                onMouseLeave={() => setPaused(false)}
+                onTouchStart={onTouchStart}
+                onTouchEnd={onTouchEnd}
+            >
+                {/* Slides */}
+                {slides.map((slide, i) => (
+                    <div
+                        key={i}
+                        style={{
+                            position: 'absolute', inset: 0,
+                            opacity: i === current ? 1 : 0,
+                            transition: 'opacity 0.65s ease',
+                            pointerEvents: i === current ? 'auto' : 'none',
+                        }}
+                    >
+                        {(loaded.has(i) && inView) && (
+                            <img
+                                src={slide.src}
+                                alt={slide.label}
+                                loading="lazy"
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                        )}
+                    </div>
+                ))}
+
+                {/* Skeleton shimmer while first image loads */}
+                {!inView && (
+                    <div style={{
+                        position: 'absolute', inset: 0,
+                        background: `linear-gradient(90deg, ${theme.border} 25%, ${theme.bgAlt} 50%, ${theme.border} 75%)`,
+                        backgroundSize: '200% 100%',
+                        animation: 'shimmer 1.6s infinite',
+                    }} />
+                )}
+
+                {/* Prev arrow */}
+                <button
+                    onClick={goPrev} aria-label="Previous"
+                    style={arrowStyle('left')}
+                    onMouseEnter={e => { e.currentTarget.style.background = `${theme.accent}cc`; e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.38)'; e.currentTarget.style.transform = 'translateY(-50%) scale(1)'; }}
+                >
+                    ‹
+                </button>
+
+                {/* Next arrow */}
+                <button
+                    onClick={goNext} aria-label="Next"
+                    style={arrowStyle('right')}
+                    onMouseEnter={e => { e.currentTarget.style.background = `${theme.accent}cc`; e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.38)'; e.currentTarget.style.transform = 'translateY(-50%) scale(1)'; }}
+                >
+                    ›
+                </button>
+
+                {/* Caption bar */}
+                <div style={{
+                    position: 'absolute', bottom: 0, left: 0, right: 0,
+                    padding: '32px 16px 14px',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.58) 0%, transparent 100%)',
+                    display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
+                    pointerEvents: 'none',
+                }}>
+                    <span style={{
+                        fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.92)',
+                        padding: '4px 14px', borderRadius: 20,
+                        background: 'rgba(0,0,0,0.32)', backdropFilter: 'blur(6px)',
+                        letterSpacing: 0.3,
+                    }}>
+                        {slides[current].label}
+                    </span>
+                </div>
+
+                {/* Progress bar */}
+                {!paused && inView && (
+                    <div style={{
+                        position: 'absolute', bottom: 0, left: 0, height: 3,
+                        background: theme.accent,
+                        animation: 'progress 4.5s linear infinite',
+                        transformOrigin: 'left center',
+                        borderRadius: '0 2px 2px 0',
+                    }} />
+                )}
+            </div>
+
+            {/* Dot indicators */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 7, marginTop: 20, flexWrap: 'wrap' }}>
+                {slides.map((_, i) => (
+                    <button
+                        key={i}
+                        onClick={() => setCurrent(i)}
+                        aria-label={`Slide ${i + 1}`}
+                        style={{
+                            width: i === current ? 22 : 8, height: 8, borderRadius: 4,
+                            border: 'none', padding: 0, cursor: 'pointer',
+                            background: i === current ? theme.accent : theme.border,
+                            transition: 'width 0.3s ease, background 0.3s ease',
+                            flexShrink: 0,
+                        }}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
 // ── detect browser language ─────────────────────────────────
 function detectLang() {
     if (typeof navigator === 'undefined') return 'en';
@@ -897,7 +1091,7 @@ export default function App({ initialLang = 'auto' }) {
             {/* ── QUICK DEPLOY ── */}
             <QuickDeploySection theme={theme} lang={lang} t={t} />
 
-            {/* ── MOCK DEMO ── */}
+            {/* ── SCREENSHOT DEMO ── */}
             <section style={{
                 padding: '80px clamp(24px, 8vw, 120px)',
                 background: theme.bg,
@@ -910,8 +1104,8 @@ export default function App({ initialLang = 'auto' }) {
                     </h2>
                     <p style={{ fontSize: 16, color: theme.muted, fontWeight: 300 }}>{t.demo_sub}</p>
                 </div>
-                <div style={{ animation: 'float 7s ease-in-out infinite', width: '100%', display: 'flex', justifyContent: 'center' }}>
-                    <MockDashboard theme={theme} lang={lang} />
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <ScreenshotCarousel theme={theme} lang={lang} />
                 </div>
             </section>
 
