@@ -104,7 +104,6 @@ function mdToHtml(md: string): string {
           <article class={`cl-release ${release.prerelease ? 'prerelease' : ''}`}>
             <div class="cl-line-col">
               <div class={`cl-dot ${idx === 0 && !release.prerelease ? 'latest' : ''} ${release.prerelease ? 'pre' : ''}`}></div>
-              {idx < releases.length - 1 && <div class="cl-connector"></div>}
             </div>
 
             <div class="cl-card">
@@ -298,10 +297,26 @@ function mdToHtml(md: string): string {
     padding-bottom: 1.5rem;
   }
   .cl-line-col {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 1.4rem;
+  }
+  .cl-line-col::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: -1.5rem;
+    width: 2px;
+    background: #c4b5fd;
+    z-index: 0;
+  }
+  .cl-release:last-child .cl-line-col::before {
+    bottom: auto;
+    height: calc(1.4rem + 7px);
   }
   .cl-dot {
     width: 14px;
@@ -311,6 +326,7 @@ function mdToHtml(md: string): string {
     border: 3px solid #faf9ff;
     box-shadow: 0 0 0 2px #c4b5fd;
     flex-shrink: 0;
+    position: relative;
     z-index: 1;
   }
   .cl-dot.latest {
@@ -320,14 +336,6 @@ function mdToHtml(md: string): string {
   .cl-dot.pre {
     background: #f59e0b;
     box-shadow: 0 0 0 2px #fcd34d;
-  }
-  .cl-connector {
-    width: 2px;
-    flex: 1;
-    min-height: 2rem;
-    background: linear-gradient(to bottom, #c4b5fd, #ede9fe);
-    margin-top: 4px;
-    margin-bottom: -1.5rem;
   }
   .cl-card {
     background: #fff;
