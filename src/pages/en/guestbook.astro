@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SharedNav from '../../components/SharedNav.jsx';
 ---
 
 <Layout
@@ -7,15 +8,8 @@ import Layout from '../../layouts/Layout.astro';
   title="Guestbook · Rivulet"
   description="Leave a message, share your thoughts or feedback, and help Rivulet grow."
 >
+  <SharedNav client:load lang="en" activePage="guestbook" />
   <div class="guestbook-page">
-    <header class="gb-header">
-      <a href="/en/" class="gb-back">← Back to Home</a>
-      <div class="gb-logo">
-        <img src="/logo.png" alt="Rivulet logo" />
-        <span>Rivulet</span>
-      </div>
-      <a href="/zh/guestbook" class="gb-lang">中文</a>
-    </header>
 
     <main class="gb-main">
       <div class="gb-hero">
@@ -56,6 +50,7 @@ import Layout from '../../layouts/Layout.astro';
     font-family: 'Plus Jakarta Sans', 'Noto Sans SC', sans-serif;
     background: #faf9ff;
     color: #1e1b2e;
+    padding-top: 64px;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -63,65 +58,9 @@ import Layout from '../../layouts/Layout.astro';
       background: #0f0d1a;
       color: #ede9fe;
     }
-    .gb-header {
-      background: #13111f !important;
-      border-bottom-color: #2e2558 !important;
-    }
-    .gb-back, .gb-lang {
-      color: #9b93c4 !important;
-      border-color: #2e2558 !important;
-    }
-    .gb-back:hover, .gb-lang:hover {
-      color: #a78bfa !important;
-      border-color: #a78bfa !important;
-    }
     .gb-hero p {
       color: #9b93c4 !important;
     }
-  }
-
-  .gb-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 clamp(24px, 5vw, 80px);
-    height: 64px;
-    background: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid #ede9fe;
-  }
-
-  .gb-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #1e1b2e;
-  }
-
-  .gb-logo img {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-  }
-
-  .gb-back, .gb-lang {
-    font-size: 13px;
-    color: #6d6a84;
-    text-decoration: none;
-    padding: 5px 12px;
-    border-radius: 20px;
-    border: 1px solid #ede9fe;
-    transition: all 0.2s;
-  }
-
-  .gb-back:hover, .gb-lang:hover {
-    color: #8B5CF6;
-    border-color: #8B5CF6;
   }
 
   .gb-main {

@@ -1082,12 +1082,12 @@ export default function App({ initialLang = 'auto' }) {
                     padding: '0 clamp(20px, 5vw, 80px)', height: 64,
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
                         <img src="/logo.png" alt="Rivulet logo" style={{ width: 28, height: 28, borderRadius: 8 }} />
                         <span style={{ fontSize: 16, fontWeight: 700, color: theme.text, letterSpacing: -0.3 }}>
                             {lang === 'zh' ? '溪流记账' : 'Rivulet'}
                         </span>
-                    </div>
+                    </a>
 
                     {/* Desktop right side */}
                     {!isMobile && (

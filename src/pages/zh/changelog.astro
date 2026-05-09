@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import SharedNav from '../../components/SharedNav.jsx';
 
 interface Release {
   id: number;
@@ -73,16 +74,8 @@ function mdToHtml(md: string): string {
   title="更新日志 · 溪流记账"
   description="查看溪流记账（Rivulet）的所有版本发布记录与更新日志。"
 >
+  <SharedNav client:load lang="zh" activePage="changelog" />
   <div class="cl-page">
-    <!-- ── 顶栏 ── -->
-    <header class="cl-header">
-      <a href="/zh/" class="cl-back">← 返回首页</a>
-      <a href="/zh/changelog" class="cl-logo">
-        <img src="/logo.png" alt="Rivulet logo" />
-        <span>溪流记账</span>
-      </a>
-      <a href="/en/changelog" class="cl-lang">EN</a>
-    </header>
 
     <!-- ── 英雄区 ── -->
     <section class="cl-hero">
@@ -174,50 +167,8 @@ function mdToHtml(md: string): string {
     font-family: 'Noto Sans SC', 'Plus Jakarta Sans', sans-serif;
     background: #faf9ff;
     color: #1e1b2e;
+    padding-top: 64px;
   }
-
-  /* ── 顶栏 ── */
-  .cl-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid #ede9fe;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(12px);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .cl-back {
-    font-size: 0.875rem;
-    color: #8B5CF6;
-    text-decoration: none;
-    font-weight: 500;
-    transition: opacity 0.2s;
-  }
-  .cl-back:hover { opacity: 0.7; }
-  .cl-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #1e1b2e;
-    text-decoration: none;
-  }
-  .cl-logo img { width: 28px; height: 28px; border-radius: 6px; }
-  .cl-lang {
-    font-size: 0.875rem;
-    color: #8B5CF6;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.25rem 0.75rem;
-    border: 1px solid #ede9fe;
-    border-radius: 20px;
-    transition: background 0.2s;
-  }
-  .cl-lang:hover { background: #f5f3ff; }
 
   /* ── 英雄区 ── */
   .cl-hero {
