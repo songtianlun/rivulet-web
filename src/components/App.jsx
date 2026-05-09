@@ -762,13 +762,13 @@ function Lightbox({ slides, index, onClose, onPrev, onNext }) {
 
 // ── SCREENSHOT CAROUSEL ──────────────────────────────────────
 const SCREENSHOTS = [
-    { file: 'Rivulet_dashboard_2026-05-07_22-29-38.png',    zh: '仪表盘',   en: 'Dashboard' },
+    { file: 'Rivulet_dashboard_2026-05-07_22-29-38.png', zh: '仪表盘', en: 'Dashboard' },
     { file: 'Rivulet_transactions_2026-05-07_22-29-51.png', zh: '流水记录', en: 'Transactions' },
-    { file: 'Rivulet_accounts_2026-05-07_22-35-45.png',     zh: '账户管理', en: 'Accounts' },
-    { file: 'Rivulet_ledgers_2026-05-07_22-35-37.png',      zh: '多账本',   en: 'Ledgers' },
-    { file: 'Rivulet_budgets_2026-05-07_22-35-12.png',      zh: '预算规划', en: 'Budgets' },
-    { file: 'Rivulet_investments_2026-05-07_22-35-26.png',  zh: '投资管理', en: 'Investments' },
-    { file: 'Rivulet_settings_2026-05-07_22-36-01.png',     zh: '设置',     en: 'Settings' },
+    { file: 'Rivulet_accounts_2026-05-07_22-35-45.png', zh: '账户管理', en: 'Accounts' },
+    { file: 'Rivulet_ledgers_2026-05-07_22-35-37.png', zh: '多账本', en: 'Ledgers' },
+    { file: 'Rivulet_budgets_2026-05-07_22-35-12.png', zh: '预算规划', en: 'Budgets' },
+    { file: 'Rivulet_investments_2026-05-07_22-35-26.png', zh: '投资管理', en: 'Investments' },
+    { file: 'Rivulet_settings_2026-05-07_22-36-01.png', zh: '设置', en: 'Settings' },
 ];
 
 function ScreenshotCarousel({ theme, lang }) {
@@ -1046,7 +1046,7 @@ export default function App({ initialLang = 'auto' }) {
     // Close menu on scroll
     useEffect(() => {
         if (menuOpen) setMenuOpen(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scrolled]);
 
     const features = [
